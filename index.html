@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Green MSME Growth & Financial Health Simulator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-inner">
+    <div class="logo-area">
+      <span class="logo-leaf">🌿</span>
+      <div>
+        <h1 class="site-title">Green MSME Simulator</h1>
+        <p class="site-tagline">India's Policy &amp; Sustainability Impact Engine</p>
+      </div>
+    </div>
+    <nav class="header-nav">
+      <a href="#simulator">Simulator</a>
+      <a href="#compare">Compare</a>
+      <a href="#charts">Charts</a>
+      <a href="#dashboard">Dashboard</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">Undergraduate Data Science Project · Web Technology</div>
+    <h2 class="hero-headline">How do RBI Rates, Inflation &amp; Green Practices<br>Shape MSME Survival?</h2>
+    <p class="hero-sub">Enter your MSME data and simulate real economic outcomes. Explore how monetary policy and sustainability drive—or destroy—micro business growth in India.</p>
+    <div class="hero-stats">
+      <div class="hstat"><span class="hstat-num">6.3 Cr+</span><span class="hstat-label">MSMEs in India</span></div>
+      <div class="hstat"><span class="hstat-num">30%</span><span class="hstat-label">of India's GDP</span></div>
+      <div class="hstat"><span class="hstat-num">11 Cr+</span><span class="hstat-label">Jobs Supported</span></div>
+    </div>
+  </div>
+  <div class="hero-illustration">
+    <div class="illus-circle c1"></div>
+    <div class="illus-circle c2"></div>
+    <div class="illus-circle c3"></div>
+    <span class="illus-icon">📊</span>
+  </div>
+</section>
+
+<!-- MODULE 1: INPUTS -->
+<section id="simulator" class="section inputs-section">
+  <div class="container">
+    <div class="section-label">Module 1</div>
+    <h2 class="section-title">MSME Input Parameters</h2>
+    <p class="section-desc">Configure your MSME's financial profile and macroeconomic environment</p>
+
+    <div class="eq-box">
+      <div class="eq-title">📐 Core Economic Equations</div>
+      <div class="eq-grid">
+        <div class="eq-item"><div class="eq-label">Net Adjusted Profit</div><div class="eq-formula"><em>π</em> = R − C<sub>adj</sub> − IC − IE</div></div>
+        <div class="eq-item"><div class="eq-label">Interest Cost</div><div class="eq-formula">IC = 0.40 × I × r<sub>RBI</sub></div></div>
+        <div class="eq-item"><div class="eq-label">Inflation Erosion (50% pass-through)</div><div class="eq-formula">IE = GP × (π / 100) × 0.50</div></div>
+        <div class="eq-item"><div class="eq-label">5-Year Green Compounding</div><div class="eq-formula">P<sub>5yr</sub> = Σ<sub>t=1..5</sub> [π<sub>net</sub> × (1+g)<sup>t</sup>]</div></div>
+        <div class="eq-item"><div class="eq-label">Financial Health Score</div><div class="eq-formula">FHS = 35·(m/25) + S<sub>green</sub> + 20·(10−r)/10 + 20·(15−i)/15</div></div>
+        <div class="eq-item"><div class="eq-label">Profit Margin</div><div class="eq-formula">m = (π<sub>net</sub> / R<sub>annual</sub>) × 100 %</div></div>
+      </div>
+    </div>
+
+    <div class="input-grid">
+      <div class="input-card">
+        <div class="input-icon">💰</div>
+        <label for="investment">Total Investment (₹)</label>
+        <input type="number" id="investment" value="500000" min="0"/>
+        <span class="input-hint">Seed + operational capital (I)</span>
+      </div>
+      <div class="input-card">
+        <div class="input-icon">📈</div>
+        <label for="revenue">Monthly Revenue (₹)</label>
+        <input type="number" id="revenue" value="80000" min="0"/>
+        <span class="input-hint">Average gross monthly income</span>
+      </div>
+      <div class="input-card">
+        <div class="input-icon">🏦</div>
+        <label for="rbi_rate">RBI Repo Rate (%)</label>
+        <input type="number" id="rbi_rate" value="6.5" step="0.1" min="0" max="30"/>
+        <span class="input-hint">Monetary policy rate r<sub>RBI</sub></span>
+      </div>
+      <div class="input-card">
+        <div class="input-icon">📉</div>
+        <label for="inflation">Inflation Rate (%)</label>
+        <input type="number" id="inflation" value="5.5" step="0.1" min="0" max="30"/>
+        <span class="input-hint">Annual CPI inflation (π)</span>
+      </div>
+      <div class="input-card">
+        <div class="input-icon">🌱</div>
+        <label for="cost_pct">Cost of Production (% of Revenue)</label>
+        <input type="number" id="cost_pct" value="60" step="1" min="0" max="100"/>
+        <span class="input-hint">Cost ratio C/R × 100</span>
+      </div>
+      <div class="input-card">
+        <div class="input-icon">♻️</div>
+        <label for="sustainability">Sustainability Adoption Level</label>
+        <select id="sustainability">
+          <option value="low">Low — Traditional, no eco-practices</option>
+          <option value="medium" selected>Medium — Some green initiatives</option>
+          <option value="high">High — Fully eco-certified MSME</option>
+        </select>
+        <span class="input-hint">Green adoption affects cost multiplier</span>
+      </div>
+    </div>
+
+    <div class="simulate-btn-wrap">
+      <button class="btn-simulate" onclick="runSimulation()">▶ Run Full Simulation</button>
+      <button class="btn-reset"    onclick="resetAll()">↺ Reset</button>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section class="section results-section" id="results-section">
+  <div class="container">
+    <div class="module-row">
+
+      <!-- MODULE 2: PROFIT -->
+      <div class="module-card">
+        <div class="module-header">
+          <span class="module-num">02</span>
+          <div><div class="module-tag">Profit Analysis</div><h3>MSME Profit Simulator</h3></div>
+        </div>
+        <div class="profit-row"><span>Annual Revenue <small>(R = 12 × rev)</small></span><span id="pr-annual-rev" class="val-positive">—</span></div>
+        <div class="profit-row"><span>Cost of Production <small>(C = R × c%)</small></span><span id="pr-cost" class="val-negative">—</span></div>
+        <div class="profit-row"><span>Loan Interest <small>(IC = 0.4I × r)</small></span><span id="pr-interest" class="val-negative">—</span></div>
+        <div class="profit-row"><span>Inflation Erosion <small>(IE = GP × π/2)</small></span><span id="pr-inflation" class="val-negative">—</span></div>
+        <div class="profit-row profit-total"><span>Net Adjusted Profit (π<sub>net</sub>)</span><span id="pr-net" class="val-net">—</span></div>
+        <div class="profit-row"><span>Profit Margin (m = π/R)</span><span id="pr-margin">—</span></div>
+        <div class="profit-bar-wrap">
+          <div class="profit-bar-label">Profit health</div>
+          <div class="bar-track"><div class="bar-fill" id="profit-bar-fill"></div></div>
+        </div>
+      </div>
+
+      <!-- MODULE 3: SUSTAINABILITY -->
+      <div class="module-card">
+        <div class="module-header">
+          <span class="module-num">03</span>
+          <div><div class="module-tag">Sustainability Impact</div><h3>Green Growth Effect</h3></div>
+        </div>
+        <div class="sustain-comparison">
+          <div class="sustain-col">
+            <div class="sustain-col-label">🏭 Non-Green</div>
+            <div class="sustain-val" id="s-low-profit">—</div>
+            <div class="sustain-sublabel">5-yr cumulative</div>
+          </div>
+          <div class="sustain-col selected-col">
+            <div class="sustain-col-label" id="sustain-selected-label">🌿 Your MSME</div>
+            <div class="sustain-val selected-val" id="s-selected-profit">—</div>
+            <div class="sustain-sublabel">5-yr cumulative</div>
+          </div>
+          <div class="sustain-col">
+            <div class="sustain-col-label">🌍 Fully Green</div>
+            <div class="sustain-val" id="s-high-profit">—</div>
+            <div class="sustain-sublabel">5-yr cumulative</div>
+          </div>
+        </div>
+        <div class="sustain-insight" id="sustain-insight">Run simulation to see insights.</div>
+        <div class="sustain-boost"   id="sustain-boost"></div>
+      </div>
+    </div>
+
+    <!-- MODULE 4: POLICY -->
+    <div class="module-card full-card" id="policy">
+      <div class="module-header">
+        <span class="module-num">04</span>
+        <div><div class="module-tag">RBI Monetary Policy</div><h3>Policy Impact Analyzer</h3></div>
+      </div>
+      <p class="module-desc">How does changing the RBI Repo Rate affect MSME expansion potential?</p>
+      <div class="policy-scenarios" id="policy-scenarios"></div>
+      <div class="policy-verdict"   id="policy-verdict"></div>
+    </div>
+
+    <!-- MODULE 5: GDP -->
+    <div class="module-card full-card">
+      <div class="module-header">
+        <span class="module-num">05</span>
+        <div><div class="module-tag">Macroeconomic Lens</div><h3>MSME Contribution to Economy</h3></div>
+      </div>
+      <div class="gdp-grid">
+        <div class="gdp-card"><div class="gdp-icon">🏗️</div><div class="gdp-title">Employment Generation</div><div class="gdp-val" id="gdp-employment">—</div><div class="gdp-label">Estimated workers supported</div></div>
+        <div class="gdp-card"><div class="gdp-icon">📦</div><div class="gdp-title">GDP Contribution Tier</div><div class="gdp-val" id="gdp-tier">—</div><div class="gdp-label">Based on investment &amp; revenue</div></div>
+        <div class="gdp-card"><div class="gdp-icon">🔄</div><div class="gdp-title">Value Chain Position</div><div class="gdp-val" id="gdp-chain">—</div><div class="gdp-label">Micro / Small / Medium</div></div>
+        <div class="gdp-card"><div class="gdp-icon">🌐</div><div class="gdp-title">Export Potential</div><div class="gdp-val" id="gdp-export">—</div><div class="gdp-label">Based on margins &amp; sustainability</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARE SCENARIOS -->
+<section class="section compare-section" id="compare">
+  <div class="container">
+    <div class="section-label" style="color:var(--gold)">Research Module</div>
+    <h2 class="section-title" style="color:#fff">Compare Scenarios</h2>
+    <p class="section-desc" style="color:var(--green-300)">Click any scenario to compare outcomes side-by-side against your base case</p>
+    <div class="scenario-btns">
+      <button class="sc-btn sc-btn-red"   id="btn-sc-inflation" onclick="toggleScenario('inflation')">🔴 High Inflation Scenario (8%)</button>
+      <button class="sc-btn sc-btn-green" id="btn-sc-lowrate"   onclick="toggleScenario('lowrate')">🟢 Low Repo Rate Scenario (4%)</button>
+      <button class="sc-btn sc-btn-teal"  id="btn-sc-green"     onclick="toggleScenario('green')">🌿 Full Green Adoption</button>
+      <button class="sc-btn sc-btn-amber" id="btn-sc-crisis"    onclick="toggleScenario('crisis')">⚠️ Crisis Mode — Recession</button>
+    </div>
+    <div class="compare-grid" id="compare-grid"></div>
+    <div id="compare-note" class="compare-note">Click any scenario button above to activate and compare against your base case</div>
+  </div>
+</section>
+
+<!-- CHARTS -->
+<section class="section charts-section" id="charts">
+  <div class="container">
+    <div class="section-label">Data Visualisation</div>
+    <h2 class="section-title">Economic Analysis Charts</h2>
+    <p class="section-desc">Visual proof of how monetary policy and sustainability shape MSME outcomes</p>
+    <div class="charts-grid">
+      <div class="chart-card">
+        <div class="chart-title">📈 Net Profit vs RBI Repo Rate</div>
+        <div class="chart-sub">Monetary transmission: how rate changes compress MSME margins</div>
+        <div class="chart-eq">π<sub>net</sub>(r) = GP − 0.4·I·r − GP·(inf/2)</div>
+        <canvas id="chart-profit-rbi"></canvas>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">🌿 Green Adoption vs 5-Year Profit</div>
+        <div class="chart-sub">Compounding effect of sustainability multiplier on long-term earnings</div>
+        <div class="chart-eq">P<sub>5yr</sub>(g) = Σ<sub>t=1..5</sub> [π × α<sub>cost</sub> × (1+g)<sup>t</sup>]</div>
+        <canvas id="chart-green-profit"></canvas>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">🕸 Multi-Scenario Health Radar</div>
+        <div class="chart-sub">Radar comparison of all active scenarios across 5 dimensions</div>
+        <div class="chart-eq">FHS dimensions: Profit · Sustainability · Policy · Inflation · Growth</div>
+        <canvas id="chart-radar"></canvas>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">📉 Inflation Rate vs Profit Erosion</div>
+        <div class="chart-sub">IE = GP × (π/100) × 0.50 — 50% pass-through assumption</div>
+        <div class="chart-eq">Real Profit = π<sub>net</sub> − IE(π)</div>
+        <canvas id="chart-inflation"></canvas>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DASHBOARD -->
+<section class="section dashboard-section" id="dashboard">
+  <div class="container">
+    <div class="section-label">Final Module</div>
+    <h2 class="section-title">MSME Financial Health Dashboard</h2>
+    <p class="section-desc">Your MSME's comprehensive performance scorecard</p>
+    <div class="dashboard-grid">
+      <div class="dash-score-card">
+        <div class="score-ring-wrap">
+          <svg class="score-ring" viewBox="0 0 120 120">
+            <circle class="ring-bg"   cx="60" cy="60" r="50"/>
+            <circle class="ring-fill" id="ring-fill" cx="60" cy="60" r="50"
+              stroke-dasharray="314" stroke-dashoffset="314"/>
+          </svg>
+          <div class="score-inner">
+            <span class="score-num"   id="health-score-num">—</span>
+            <span class="score-label">/ 100</span>
+          </div>
+        </div>
+        <div class="score-title">Financial Health Score</div>
+        <div class="score-grade" id="score-grade">—</div>
+      </div>
+      <div class="dash-metrics">
+        <div class="dash-metric-row"><div class="dm-label">Growth Potential</div><div class="dm-bar-wrap"><div class="dm-bar" id="growth-bar"></div></div><div class="dm-val" id="growth-val">—</div></div>
+        <div class="dash-metric-row"><div class="dm-label">Sustainability Rating</div><div class="dm-bar-wrap"><div class="dm-bar green-bar" id="sustain-bar"></div></div><div class="dm-val" id="sustain-val">—</div></div>
+        <div class="dash-metric-row"><div class="dm-label">Policy Resilience</div><div class="dm-bar-wrap"><div class="dm-bar blue-bar" id="policy-bar"></div></div><div class="dm-val" id="policy-val">—</div></div>
+        <div class="dash-metric-row"><div class="dm-label">Inflation Immunity</div><div class="dm-bar-wrap"><div class="dm-bar amber-bar" id="inflation-bar"></div></div><div class="dm-val" id="inflation-val">—</div></div>
+      </div>
+      <div class="dash-verdict">
+        <div class="verdict-icon" id="verdict-icon">🔄</div>
+        <div class="verdict-text" id="verdict-text">Run the simulation to see your MSME's health assessment and policy recommendations.</div>
+        <div class="verdict-tags" id="verdict-tags"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONCEPTS -->
+<section class="section concepts-section">
+  <div class="container">
+    <h2 class="section-title">Economic Concepts Behind This Simulator</h2>
+    <div class="concepts-grid">
+      <div class="concept-card"><div class="cc-icon">🏦</div><h4>RBI Monetary Policy</h4><p>The RBI repo rate drives MSME borrowing costs. Higher rates → costlier loans → credit constraint. IC = 0.4I × r<sub>RBI</sub></p></div>
+      <div class="concept-card"><div class="cc-icon">📉</div><h4>Inflation Impact</h4><p>Rising inflation erodes real profits. Simulator applies 50% pass-through: IE = GP × (π/2), reflecting limited MSME pricing power.</p></div>
+      <div class="concept-card"><div class="cc-icon">🌱</div><h4>Green Economics</h4><p>Sustainability cuts long-run costs (10% saving for high adopters) and attracts ESG credit. Growth bonus g ∈ {0%, 4%, 9%}.</p></div>
+      <div class="concept-card"><div class="cc-icon">📊</div><h4>MSME &amp; GDP</h4><p>MSMEs contribute ~30% to India's GDP and employ 11 crore workers. FHS synthesises profitability, policy, sustainability &amp; inflation resilience.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p>🌿 <strong>Green MSME Growth &amp; Financial Health Simulator</strong></p>
+    <p>Web Technology Project · Department of Data Science</p>
+    <p style="color:#6b8a6b;font-size:0.8rem;margin-top:0.5rem;">Powered by HTML · CSS · JavaScript · Chart.js · Economic Modelling</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
